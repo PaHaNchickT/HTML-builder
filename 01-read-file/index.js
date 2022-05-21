@@ -6,5 +6,3 @@ const stream = fs.createReadStream(`${path.dirname(__filename)}\\text.txt`, 'utf
 let data = '';
 stream.on('data', chunk => data += chunk);
 stream.on('end', () => stdout.write(data));
-
-module.exports = data

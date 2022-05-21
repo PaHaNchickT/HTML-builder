@@ -1,5 +1,3 @@
-let data
-
 const fs = require('fs');
 const path = require('path');
 const way = path.join(__dirname, 'file.txt')
@@ -29,5 +27,3 @@ process.on('SIGINT', () => {
     stdout.write("Прощай, мой друг!");
     process.exit()
 });
-
-module.exports = data
