@@ -2,17 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const { stdin, stdout } = process;
 
+fs.writeFile(path.join(__dirname, 'project-dist', 'bundle.css'), '', err => {
+    findingFiles(path.dirname(__filename))
+}
+);
+
 function findingFiles(way) {
     fs.readdirSync(way, { withFileTypes: true }, (err) => { }).forEach(e => {
         if (e.isFile() === true) {
-            let weight = fs.statSync(`${way}\\${e.name}`, (err) => {})
-            stdout.write(`${e.name.split('.')[0]} - ${e.name.split('.')[1]} - ${(weight.size / 1024).toFixed(3)}kb`)
-            stdout.write('\n')
+            if (e.name.split('.')[1] === 'css' && e.name !== 'bundle.css') {
+                const input = fs.createReadStream(`${way}\\${e.name}`, 'utf-8');
+                let data = '';
+                input.on('data', chunk => data += chunk);
+                input.on('end', () => {
+                    fs.appendFile(`${path.join(__dirname, 'project-dist', 'bundle.css')}`, data, err => { })
+                    // console.log(`${e.name} записан`)
+                });
+            }
         }
-        if (e.isFile() === false) {
+        if (e.isFile() === false && e.name !== 'test-files') {
             findingFiles(`${way}\\${e.name}`)
         }
     })
 }
-
-findingFiles(path.dirname(__filename))
