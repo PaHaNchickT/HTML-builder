@@ -16,7 +16,6 @@ function findingFiles(way) {
                 input.on('data', chunk => data += chunk);
                 input.on('end', () => {
                     fs.appendFile(`${path.join(__dirname, 'project-dist', 'bundle.css')}`, data, err => { })
-                    // console.log(`${e.name} записан`)
                 });
             }
         }
