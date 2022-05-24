@@ -7,11 +7,12 @@ fs.mkdir(
     err => {}
 )
 
-const files = fs.readdirSync(path.join(__dirname, 'files'),{ withFileTypes: true }, (err) => {})
-files.forEach(e => {
-    fs.copyFile(
-        path.join(__dirname, 'files', e.name),
-        path.join(__dirname, 'files-copy', e.name),
-        err => {}
-    )  
+fs.readdir(path.join(__dirname, 'files'),{ withFileTypes: true }, (err, items) => {
+    items.forEach(e => {
+        fs.copyFile(
+            path.join(__dirname, 'files', e.name),
+            path.join(__dirname, 'files-copy', e.name),
+            err => {}
+        )  
+    })
 })

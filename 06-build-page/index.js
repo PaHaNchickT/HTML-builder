@@ -37,38 +37,42 @@ fs.writeFile(path.join(__dirname, 'project-dist', 'style.css'), '', err => {
 );
 
 function findingFiles(way) {
-    fs.readdirSync(way, { withFileTypes: true }, (err) => { }).forEach(e => {
-        if (e.isFile() === true) {
-            if (e.name.split('.')[1] === 'css' && e.name !== 'style.css') {
-                const input = fs.createReadStream(`${way}\\${e.name}`, 'utf-8');
-                let data = '';
-                input.on('data', chunk => data += chunk);
-                input.on('end', () => {
-                    fs.appendFile(`${path.join(__dirname, 'project-dist', 'style.css')}`, data, err => { })
-                });
+    fs.readdir(way, { withFileTypes: true }, (err, items) => {
+        items.forEach(e => {
+            if (e.isFile() === true) {
+                if (e.name.split('.')[1] === 'css' && e.name !== 'style.css') {
+                    const input = fs.createReadStream(`${way}\\${e.name}`, 'utf-8');
+                    let data = '';
+                    input.on('data', chunk => data += chunk);
+                    input.on('end', () => {
+                        fs.appendFile(`${path.join(__dirname, 'project-dist', 'style.css')}`, data, err => { })
+                    });
+                }
             }
-        }
-        if (e.isFile() === false && e.name !== 'test-files') {
-            findingFiles(`${way}\\${e.name}`)
-        }
+            if (e.isFile() === false && e.name !== 'test-files') {
+                findingFiles(`${way}\\${e.name}`)
+            }
+        })
     })
 }
 
 //////////////////////////////////////assets///////////////////////////////////////
 
 function assetsCopy(way) {
-    fs.readdirSync(way, { withFileTypes: true }, (err) => { }).forEach(e => {
-        if (e.isFile() === true) {
-            fs.mkdir(path.join(__dirname, 'project-dist' , 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`), err => { })
-            fs.copyFile(
-                `${way}\\${e.name}`,
-                path.join(__dirname, 'project-dist', 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`, e.name),
-                err => { }
-            )
-        }
-        if (e.isFile() === false) {
-            assetsCopy(`${way}\\${e.name}`)
-        }
+    fs.readdir(way, { withFileTypes: true }, (err, items) => {
+        items.forEach(e => {
+            if (e.isFile() === true) {
+                fs.mkdir(path.join(__dirname, 'project-dist' , 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`), err => { })
+                fs.copyFile(
+                    `${way}\\${e.name}`,
+                    path.join(__dirname, 'project-dist', 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`, e.name),
+                    err => { }
+                )
+            }
+            if (e.isFile() === false) {
+                assetsCopy(`${way}\\${e.name}`)
+            }
+        })
     })
 }
 
