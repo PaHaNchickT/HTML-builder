@@ -65,12 +65,39 @@ function assetsCopy(way) {
     fs.readdir(way, { withFileTypes: true }, (err, items) => {
         items.forEach(e => {
             if (e.isFile() === true) {
-                fs.mkdir(path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`), err => { })
-                fs.copyFile(
-                    path.join(way, e.name),
-                    path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`, e.name),
-                    err => { }
-                )
+                if (path.join(way, e.name).includes('img') === true) {
+                    console.log(`img to ${path.join(way, e.name)}`)
+                    console.log(path.join(out, 'assets', 'img'))
+                    fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'img'), err => { })
+                    fs.copyFile(
+                        path.join(way, e.name),
+                        path.join(out, 'assets', 'img', e.name),
+                        err => { }
+                    )
+                }
+                if (path.join(way, e.name).includes('fonts') === true) {
+                    console.log(`fonts to ${path.join(way, e.name)}`)
+                    fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'fonts'), err => { })
+                    fs.copyFile(
+                        path.join(way, e.name),
+                        path.join(out, 'assets', 'fonts', e.name),
+                        err => { }
+                    )
+                }
+                if (path.join(way, e.name).includes('svg') === true) {
+                    console.log(`svg to ${path.join(way, e.name)}`)
+                    fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'svg'), err => { })
+                    fs.copyFile(
+                        path.join(way, e.name),
+                        path.join(out, 'assets', 'svg', e.name),
+                        err => { }
+                    )
+                }
+                // fs.copyFile(
+                //     path.join(way, e.name),
+                //     path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`, e.name),
+                //     err => { }
+                // )
             }
             if (e.isFile() === false) {
                 assetsCopy(path.join(way, e.name))
