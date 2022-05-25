@@ -10,7 +10,6 @@ fs.writeFile(`${out}\\index.html`, '', err => { });
 ///////////////////////////////////////////html/////////////////////////////////////////////
 
 const stream = fs.createReadStream(`${__dirname}\\template.html`, 'utf-8');
-
 let temp = '';
 stream.on('data', chunk => temp += chunk);
 stream.on('end', () => {
