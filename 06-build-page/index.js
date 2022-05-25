@@ -65,10 +65,10 @@ function assetsCopy(way) {
     fs.readdir(way, { withFileTypes: true }, (err, items) => {
         items.forEach(e => {
             if (e.isFile() === true) {
-                fs.mkdir(path.join(__dirname, 'project-dist', 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`), err => { })
+                fs.mkdir(path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`), err => { })
                 fs.copyFile(
                     path.join(way, e.name),
-                    path.join(__dirname, 'project-dist', 'assets', `${`${way}\\${e.name}`.split('\\')[10]}`, e.name),
+                    path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`, e.name),
                     err => { }
                 )
             }
