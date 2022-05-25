@@ -66,8 +66,6 @@ function assetsCopy(way) {
         items.forEach(e => {
             if (e.isFile() === true) {
                 if (path.join(way, e.name).includes('img') === true) {
-                    console.log(`img to ${path.join(way, e.name)}`)
-                    console.log(path.join(out, 'assets', 'img'))
                     fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'img'), err => { })
                     fs.copyFile(
                         path.join(way, e.name),
@@ -76,7 +74,6 @@ function assetsCopy(way) {
                     )
                 }
                 if (path.join(way, e.name).includes('fonts') === true) {
-                    console.log(`fonts to ${path.join(way, e.name)}`)
                     fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'fonts'), err => { })
                     fs.copyFile(
                         path.join(way, e.name),
@@ -85,7 +82,6 @@ function assetsCopy(way) {
                     )
                 }
                 if (path.join(way, e.name).includes('svg') === true) {
-                    console.log(`svg to ${path.join(way, e.name)}`)
                     fs.mkdir(path.join(__dirname, 'project-dist', 'assets', 'svg'), err => { })
                     fs.copyFile(
                         path.join(way, e.name),
