@@ -7,7 +7,7 @@ function findingFiles(way) {
     fs.readdir(way, { withFileTypes: true }, (err, items) => {
         items.forEach(e => {
             if (e.isFile() === true) {
-                fs.stat(`${way}\\${e.name}`, (err, stat) => {
+                fs.stat(path.join(__dirname, 'secret-folder', e.name), (err, stat) => {
                     if (e.name.split('.')[0] === '') {
                         stdout.write(`.${e.name.split('.')[1]} - ${(stat.size / 1024).toFixed(3)}kb`)
                     } else {
@@ -15,9 +15,6 @@ function findingFiles(way) {
                     }  
                     stdout.write('\n')
                 })
-            }
-            if (e.isFile() === false) {
-                findingFiles(`${way}\\${e.name}`)
             }
         })
     })

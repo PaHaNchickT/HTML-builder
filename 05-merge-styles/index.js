@@ -21,7 +21,7 @@ function findingFiles(way) {
                 }
             }
             if (e.isFile() === false && e.name !== 'test-files') {
-                findingFiles(`${way}\\${e.name}`)
+                findingFiles(path.join(way, e.name))
             }
         })
     })
