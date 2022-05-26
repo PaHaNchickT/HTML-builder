@@ -89,11 +89,6 @@ function assetsCopy(way) {
                         err => { }
                     )
                 }
-                // fs.copyFile(
-                //     path.join(way, e.name),
-                //     path.join(__dirname, 'project-dist', 'assets', `${`${way}/${e.name}`.split('/')[10]}`, e.name),
-                //     err => { }
-                // )
             }
             if (e.isFile() === false) {
                 assetsCopy(path.join(way, e.name))
@@ -103,3 +98,26 @@ function assetsCopy(way) {
 }
 
 assetsCopy(path.join(__dirname, 'assets'))
+
+/////////////////////////////////////fucking promises////////////////////////////////////
+
+// const readdirFiles = async (_path, extension) => {  
+//   await  new Promise((resolve,reject)=> {
+//     fs.readdir((_path), 
+//       { withFileTypes: true },
+//       (err, files)=>{
+//         if (err){
+//           return reject(err.massage);
+//         } 
+//         resolve(
+//           files.forEach(file => {
+//             if(file.isFile()&&path.extname(file.name)===extension){
+//               arr_css.push(file.name);
+//             }
+//           }
+//           ) );   
+//       } 
+//     );
+//   }
+//   );
+// };
