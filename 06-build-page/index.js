@@ -71,7 +71,9 @@ streamAbout.on('end', () => {
         });
 
         Promise.all(filesData).then((data) => {
-          fs.promises.writeFile(path.join(out, 'index.html'), data.join(''));
+          fs.promises
+            .writeFile(path.join(out, 'index.html'), data.join(''))
+            .then(assetsCopy(path.join(__dirname, 'assets')));
         });
       },
     );
