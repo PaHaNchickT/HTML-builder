@@ -71,13 +71,11 @@ stream.on('end', () => {
       let part = '';
       stream.on('data', (chunk) => (part += chunk));
       stream.on('end', () => {
-        (async function () {
-          const data = await fss.appendFile(
-            path.join(out, 'index.html'),
-            part + e.split('}}')[1],
-            (err) => {},
-          );
-        })();
+        fss.appendFile(
+          path.join(out, 'index.html'),
+          part + e.split('}}')[1],
+          (err) => {},
+        );
       });
     }
   });
