@@ -34,17 +34,11 @@ const streamAbout = fs.createReadStream(
 let tempAbout = '';
 streamAbout.on('data', (chunk) => (tempAbout += chunk));
 streamAbout.on('end', () => {
-  tempAbout.split('{{articles}}').forEach((e, i) => {
-    if (i === 0) {
-      fss.writeFile(
-        path.join(__dirname, 'template.html'),
-        `${e} {{about}} \n    {{articles}}`,
-        (err) => {},
-      );
-    } else {
-      fss.appendFile(path.join(__dirname, 'template.html'), e, (err) => {});
-    }
-  });
+  fss.writeFile(
+    path.join(__dirname, 'template.html'),
+    `${tempAbout.split('{{articles}}')[0]} {{about}} \n    {{articles}} ${tempAbout.split('{{articles}}')[1]}`,
+    (err) => {},
+  );
 });
 
 ///////////////////////////////////////////html/////////////////////////////////////////////
