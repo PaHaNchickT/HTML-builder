@@ -27,29 +27,25 @@ fs.readdir(testWay, (err, items) => {
   });
 });
 
-function editTemplate() {
-  const stream = fs.createReadStream(
-    path.join(__dirname, 'template.html'),
-    'utf-8',
-  );
-  let temp = '';
-  stream.on('data', (chunk) => (temp += chunk));
-  stream.on('end', () => {
-    temp.split('{{articles}}').forEach((e, i) => {
-      if (i === 0) {
-        fss.writeFile(
-          path.join(__dirname, 'template.html'),
-          `${e} {{about}} \n    {{articles}}`,
-          (err) => {},
-        );
-      } else {
-        fss.appendFile(path.join(__dirname, 'template.html'), e, (err) => {});
-      }
-    });
+const streamAbout = fs.createReadStream(
+  path.join(__dirname, 'template.html'),
+  'utf-8',
+);
+let tempAbout = '';
+streamAbout.on('data', (chunk) => (tempAbout += chunk));
+streamAbout.on('end', () => {
+  tempAbout.split('{{articles}}').forEach((e, i) => {
+    if (i === 0) {
+      fss.writeFile(
+        path.join(__dirname, 'template.html'),
+        `${e} {{about}} \n    {{articles}}`,
+        (err) => {},
+      );
+    } else {
+      fss.appendFile(path.join(__dirname, 'template.html'), e, (err) => {});
+    }
   });
-}
-
-editTemplate();
+});
 
 ///////////////////////////////////////////html/////////////////////////////////////////////
 
