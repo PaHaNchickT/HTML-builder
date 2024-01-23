@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { exit } = require('process');
+const fss = require('fs/promises')
 const way = path.join(__dirname, 'components')
 const out = path.join(__dirname, 'project-dist')
 fs.mkdir(out, err => { })
@@ -22,7 +23,7 @@ stream.on('end', () => {
             stream.on('data', chunk => part += chunk);
             stream.on('end', () => {
                 (async function () {
-                    const data = await fs.appendFile(path.join(out, 'index.html'), part+e.split('}}')[1], err => {})
+                    const data = await fss.appendFile(path.join(out, 'index.html'), part+e.split('}}')[1], err => {})
                   })()
             })
         }
