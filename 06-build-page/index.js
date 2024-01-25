@@ -9,25 +9,6 @@ fs.mkdir(path.join(out, 'assets'), (err) => {});
 fs.writeFile(path.join(out, 'index.html'), '', (err) => {});
 const comp = [];
 
-////////////////////////////////////////test files//////////////////////////////////////////
-
-const testWay = path.join(__dirname, 'test-files');
-fs.readdir(testWay, (err, items) => {
-  items.forEach((subFold) => {
-    fs.readdir(path.join(testWay, subFold), (err, itms) => {
-      let outSubFold = subFold;
-      itms.forEach((fileName) => {
-        if (subFold === 'images') outSubFold = path.join('assets', 'img');
-        fs.copyFile(
-          path.join(testWay, subFold, fileName),
-          path.join(__dirname, outSubFold, fileName),
-          (err) => {},
-        );
-      });
-    });
-  });
-});
-
 const streamAbout = fs.createReadStream(
   path.join(__dirname, 'template.html'),
   'utf-8',
@@ -38,13 +19,6 @@ const streamAbout = fs.createReadStream(
 let tempAbout = '';
 streamAbout.on('data', (chunk) => (tempAbout += chunk));
 streamAbout.on('end', () => {
-  fs.writeFile(
-    path.join(__dirname, 'template.html'),
-    `${tempAbout.split('{{articles}}')[0]} {{about}} \n    {{articles}} ${
-      tempAbout.split('{{articles}}')[1]
-    }`,
-    (err) => {},
-  );
 
   let names = [];
 
